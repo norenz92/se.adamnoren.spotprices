@@ -8,7 +8,6 @@ var uniqid = require('uniqid');
 const nordpool = require('nordpool');
 const prices = new nordpool.Prices();
 var visitor = ua('UA-87214486-6', uniqid());
-
 var d = new Date();
 
 const cronInterval = "0 * * * *";
@@ -54,7 +53,6 @@ class SpotPrices extends Homey.App {
 			this.initFlows();
 			this.getPrice();
 			console.log(visitor);
-			
 	}
 	
 	initFlows() {
@@ -78,8 +76,6 @@ class SpotPrices extends Homey.App {
 	}
 		
     getPrice() {
-
-		
 		var currentPrice;
 
 		var currentSettingArea = Homey.ManagerSettings.get('area');
