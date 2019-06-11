@@ -1,0 +1,71 @@
+{
+	"id": "se.adamnoren.spotprices",
+	"version": "1.0.1",
+	"compatibility": ">=2.0.0",
+	"sdk": 2,
+	"name": {
+		"en": "Spot Prices"
+	},
+	"description": {
+		"en": "Provides Homey with electrical spot prices"
+	},
+	"images": {
+		"large": "/assets/images/large.png",
+		"small": "/assets/images/small.png"
+	},
+	"author": {
+		"name": "Adam Norén",
+		"email": "info@adamnoren.se"
+	},
+	"contributors": {
+		"developers": [
+		  {
+			"name": "Adam Norén",
+			"email": "info@adamnoren.se"
+		  }
+		]
+	},
+	"category": [ "energy" ],
+	"brandColor": "#11a9e8",
+	"permissions": [],
+	"flow": {
+	  "triggers": [
+		{
+		  "id": "price_changed",
+		  "title": {
+			"en": "Price changes"
+		  },
+		  "tokens": [
+			{
+			  "name": "price_per_kwh",
+			  "type": "number",
+			  "title": {
+				"en": "SEK/kWh"
+			  },
+			  "example": 0.34
+			}
+		  ]
+		}
+	  ],
+	  "conditions": [
+		{
+		  "id": "price_condition",
+		  "title": {
+			"en": "Current price is !{{lower than|higher than}}..."
+		  },
+		  "titleFormatted": {
+			"en": "Current price is !{{lower than|higher than}} [[my_number]] SEK/kWh"
+		  },
+		  "args": [	  
+			  {
+				"type": "number",
+				"name": "my_number",
+				"placeholder": {
+				  "en": "Enter a price per kWh"
+				}
+			  }
+			]
+		}
+	  ]
+	}
+}

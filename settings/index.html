@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    <head>
+
+    	<!-- The '/homey.js' script must be included in your settings view to work -->
+	    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+
+    </head>
+    <body>
+
+        <h1 data-i18n="settings.title">
+        	<!--
+        	This field will automatically be filled by a translated string with key 'settings.title'.
+        	Read more about translations at Internationalization.
+        	-->
+        </h1>
+        <p data-i18n="settings.subtitle">
+        	<!--
+        	This field will also be translated
+			-->
+        </p>
+
+        <fieldset>
+            <legend>Settings</legend>
+            
+            <div class="field row">
+				<select id="area">
+				  <option value="SE1">Sweden - SE1</option>
+				  <option value="SE2">Sweden - SE2</option>
+				  <option value="SE3">Sweden - SE3</option>
+				  <option value="SE4">Sweden - SE4</option>
+				  <option value="NO1">Norway - NO1</option>
+				  <option value="NO2">Norway - NO2</option>
+				  <option value="NO3">Norway - NO3</option>
+				  <option value="NO4">Norway - NO4</option>
+				  <option value="NO5">Norway - NO5</option>
+				  <option value="FI">Finland</option>
+				  <option value="DK1">Denmark - DK1</option>
+				  <option value="DK2">Denmark - DK2</option>
+				  <option value="EE">Estonia - EE</option>
+				  <option value="LV">Latvia - LV</option>
+				  <option value="LT">Lithuania - LT</option>
+				  <option value="GB">Great Britain - GB</option>
+				</select>
+			</div>
+
+            <div class="field row">
+				<select id="currency">
+				  <option value="EUR">EUR</option>
+				  <option value="SEK">SEK</option>
+				  <option value="NOK">NOK</option>
+				  <option value="DKK">DKK</option>
+				</select>
+			</div>
+                
+
+        </fieldset>
+
+        <button id="save" class="right">Save changes</button>
+
+        <script type="text/javascript">
+
+        // a method named 'onHomeyReady' must be present in your code
+        function onHomeyReady( Homey ){
+
+	        // Tell Homey we're ready to be displayed
+            Homey.ready();
+
+            var areaElement = document.getElementById('area');
+            var currencyElement = document.getElementById('currency');
+            var saveElement = document.getElementById('save');
+
+            Homey.get('area', function( err, area ) {
+	           if( err ) return Homey.alert( err );
+			   areaElement.value = area;
+	        });
+
+            Homey.get('currency', function( err, currency ) {
+	           if( err ) return Homey.alert( err );
+			   currencyElement.value = currency;
+	        });
+
+	        saveElement.addEventListener('click', function(e) {
+
+	            Homey.set('area', areaElement.value, function( err ){
+		            if( err ) return Homey.alert( err );
+	            });
+	            Homey.set('currency', currencyElement.value, function( err ){
+		            if( err ) return Homey.alert( err );
+	            });
+
+	        });
+        }
+        </script>
+
+    </body>
+</html>
