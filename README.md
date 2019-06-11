@@ -1,5 +1,5 @@
 # Spot Prices
 
-Adds support for electrical spot prices in Sweden.
+Adds support for electrical spot prices in Sweden, Norway, Denmark, Finland, Estonia, Lithuania, Latvia and Great Britain.
 
-Prices are updated every 15 minutes (00, 15, 30, 45).
+Current prices are updated every hour.
