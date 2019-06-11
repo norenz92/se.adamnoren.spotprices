@@ -1,10 +1,13 @@
 'use strict';
 
 const Homey = require('homey');
+var ua = require('universal-analytics');
+var uniqid = require('uniqid');
 
 // Nordpool constants
-const nordpool = require('nordpool')
-const prices = new nordpool.Prices()
+const nordpool = require('nordpool');
+const prices = new nordpool.Prices();
+var visitor = ua('UA-87214486-6', uniqid());
 
 var d = new Date();
 
@@ -24,6 +27,8 @@ class SpotPrices extends Homey.App {
 	async onInit() {
 		
 		this.log('SpotPrices app is running...');
+		
+		visitor.event("Events", "App initiated").send();
 		
 		//Register crontask
 		Homey.ManagerCron.getTask(cronName)
@@ -48,6 +53,7 @@ class SpotPrices extends Homey.App {
 			
 			this.initFlows();
 			this.getPrice();
+			console.log(visitor);
 			
 	}
 	
@@ -72,11 +78,15 @@ class SpotPrices extends Homey.App {
 	}
 		
     getPrice() {
+
 		
 		var currentPrice;
 
 		var currentSettingArea = Homey.ManagerSettings.get('area');
 		var currentSettingCurrency = Homey.ManagerSettings.get('currency');
+		
+		visitor.event("Get prices", currentSettingArea).send();
+		visitor.event("Get prices", currentSettingCurrency).send();
 		
 		var opts = {
 			area: currentSettingArea, // See http://www.nordpoolspot.com/maps/
@@ -111,6 +121,7 @@ class SpotPrices extends Homey.App {
 					currentPrice = parseFloat((price/1000).toFixed(2));
 					console.log(currentPrice);
 					me.triggerFlow(currentPrice);
+					visitor.event("Price", currentPrice).send();
 				}
 			}
 		})
