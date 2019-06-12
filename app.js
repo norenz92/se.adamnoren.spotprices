@@ -8,7 +8,6 @@ var uniqid = require('uniqid');
 const nordpool = require('nordpool');
 const prices = new nordpool.Prices();
 var visitor = ua('UA-87214486-6', uniqid());
-var d = new Date();
 
 const cronInterval = "0 * * * *";
 const cronName = 'EveryHour';
@@ -72,11 +71,13 @@ class SpotPrices extends Homey.App {
     triggerFlow(newPrice){
 		var tokens = {'price_per_kwh': newPrice};
 		var state = {'price_per_kwh': newPrice};
-		this._priceUpdatedTrigger.trigger(tokens, state).then(this.log("Price updated")).catch(this.error)
+		this._priceUpdatedTrigger.trigger(tokens, state).then(this.log("Price updated: " + state)).catch(this.error)
 	}
 		
     getPrice() {
 		var currentPrice;
+		
+		var d = new Date();
 
 		var currentSettingArea = Homey.ManagerSettings.get('area');
 		var currentSettingCurrency = Homey.ManagerSettings.get('currency');
